@@ -9,5 +9,10 @@ FactoryBot.define do
     id             { 2 }
     name           { 'テックリーダーズ' }
     email          { 'org_spec1@example.com' }
+  end  
+
+  factory :test_organization, class: 'Organization' do
+    name           { 'セレブエンジニア' }
+    email          { Faker::Internet.email }
   end
 end
