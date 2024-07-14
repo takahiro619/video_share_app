@@ -5,7 +5,6 @@ class Viewer < ApplicationRecord
   has_many :organizations, through: :organization_viewers
   has_many :comments, dependent: :destroy
   has_many :replies, dependent: :destroy
-
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -25,4 +24,8 @@ class Viewer < ApplicationRecord
                      }
   # 退会者は省く絞り込み
   scope :subscribed, -> { where(is_valid: true) }
+
+  def ensure_member(organization_id)
+    OrganizationViewer.where(viewer_id: self.id, organization_id: organization_id)
+  end
 end
